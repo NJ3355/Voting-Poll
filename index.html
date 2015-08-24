@@ -1,0 +1,136 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<title></title>
+
+
+<style>
+#container {
+	text-align: center;
+	height: 50%;
+	width: 75%;
+	margin: auto;
+	background-color: teal;
+	display: none;
+
+}
+
+#poll {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+ .bar {
+	width:8%;
+	height:1%;
+	bottom: 0;
+	left:40%;
+	background-color: red;
+	display: inline-block;
+	margin-left: 35px;
+	margin-top: 258px;
+
+}
+
+</style>	
+</head>
+<body>
+
+
+ <div id="form">
+	Name of Poll:<br>
+	<input type="text" id="name">
+	<br>
+	Number of Choices:<br>
+	<input type="text" id="choiceNum">
+	<br>
+	<button onClick="x.createPoll()">Submit</button>
+</div> 
+
+<div id="container">
+	
+
+	<div id="poll">
+	</div>
+</div>
+
+
+
+<script>
+
+var Poll =  function() {
+
+	var nameOfPoll = document.getElementById('name').value;
+	var numOfChoice = parseInt(document.getElementById('choiceNum').value);
+
+
+
+	this.createPoll = function()
+	{	
+		document.getElementById('form').style.display='none'
+		document.getElementById('container').style.display='block';
+		document.getElementById('poll').innerHTML = "<h1>" + nameOfPoll + "</h1>";
+		for(var i = 0; i < numOfChoice; i++)
+		{
+			document.getElementById('poll').innerHTML += "<div class='bar'>" + "<button onClick='x.vote()'>vote</button>" + "</div>";
+			//document.getElementById('poll').innerHTML = "<h1>" + nameOfPoll + "</h1>";
+		}
+
+
+	}
+
+	this.vote = function(){
+		var votes = 0;
+		var a = document.getElementByClass
+
+	}
+
+	this.voteRepub = function(){
+		repub +=  1;
+		var a = document.getElementById('repub');
+		//document.getElementById('repub').style.height = 5;
+		a.style.height = parseInt(a.style.height || 0) + 1 + 'px';
+		update();
+	}
+
+	this.voteDemo = function(){
+		demo += 1;
+		var a = document.getElementById('demo');
+		//document.getElementById('repub').style.height += 5;
+		a.style.height = parseInt(a.style.height || 0) + 1 + 'px';
+		update();
+	}
+
+	function checkWinner(){
+		if(repub === 10 && repub > demo){
+			document.getElementById('poll').innerHTML = "<h3>" + "Republican Wins!" + "</h3>";	
+		}
+		else
+			document.getElementById('poll').innerHTML = "<h3>" + "Democratic Wins!" + "</h3>";
+	}
+
+	this.resetPoll = function(){
+
+	}
+
+	function update(){
+		document.getElementById('repub').innerHTML = "<p>" + repub + "</p>";
+		document.getElementById('demo').innerHTML = "<p>" + demo + "</p>";	
+
+	}
+
+
+
+}
+
+var x = new Poll();
+
+</script>
+
+
+
+
+
+</body>
+</html>
