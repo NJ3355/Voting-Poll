@@ -45,7 +45,7 @@
 	Number of Choices:<br>
 	<input type="text" id="choiceNum">
 	<br>
-	<button onClick="x.createPoll()">Submit</button>
+	<button onClick="Poll.createPoll()">Submit</button>
 </div> 
 
 <div id="container">
@@ -59,72 +59,71 @@
 
 <script>
 
-var Poll =  function() {
-
-	var nameOfPoll = document.getElementById('name').value;
-	var numOfChoice = parseInt(document.getElementById('choiceNum').value);
-
-
-
-	this.createPoll = function()
-	{	
-		document.getElementById('form').style.display='none'
-		document.getElementById('container').style.display='block';
-		document.getElementById('poll').innerHTML = "<h1>" + nameOfPoll + "</h1>";
-		for(var i = 0; i < numOfChoice; i++)
-		{
-			document.getElementById('poll').innerHTML += "<div class='bar'>" + "<button onClick='x.vote()'>vote</button>" + "</div>";
-			//document.getElementById('poll').innerHTML = "<h1>" + nameOfPoll + "</h1>";
-		}
-
-
-	}
-
-	this.vote = function(){
-		var votes = 0;
-		var a = document.getElementByClass
-
-	}
-
-	this.voteRepub = function(){
-		repub +=  1;
-		var a = document.getElementById('repub');
-		//document.getElementById('repub').style.height = 5;
-		a.style.height = parseInt(a.style.height || 0) + 1 + 'px';
-		update();
-	}
-
-	this.voteDemo = function(){
-		demo += 1;
-		var a = document.getElementById('demo');
-		//document.getElementById('repub').style.height += 5;
-		a.style.height = parseInt(a.style.height || 0) + 1 + 'px';
-		update();
-	}
-
-	function checkWinner(){
-		if(repub === 10 && repub > demo){
-			document.getElementById('poll').innerHTML = "<h3>" + "Republican Wins!" + "</h3>";	
-		}
-		else
-			document.getElementById('poll').innerHTML = "<h3>" + "Democratic Wins!" + "</h3>";
-	}
-
-	this.resetPoll = function(){
-
-	}
-
-	function update(){
-		document.getElementById('repub').innerHTML = "<p>" + repub + "</p>";
-		document.getElementById('demo').innerHTML = "<p>" + demo + "</p>";	
-
-	}
+(function() {
+    var pollNameEl = document.getElementById('name'),
+    chioceNumEl    = document.getElementById('choiceNum'),
+    form           = document.getElementById('form'),
+    container      = document.getElementById('container'),
+    poll           = document.getElementById('poll'),
+    repub          = document.getElementById('repub'),
+    demo           = document.getElementById('demo');
 
 
 
-}
+    window.Poll = {
 
-var x = new Poll();
+
+
+        createPoll: function() {
+            form.style.display = 'none'
+            container.style.display = 'block';
+            poll.innerHTML = "<h1>" + pollNameEl.value + "</h1>";
+            for(var i = 0; i < chioceNumEl.value; i++) {
+                poll.innerHTML += "<div class='bar'>" + "<button>vote</button>" + "</div>";
+                //document.getElementById('poll').innerHTML = "<h1>" + pollNameEl.value + "</h1>";
+            }
+        },
+
+        vote: function() {
+            poll.addEventListener('click', function(evt) {
+  		evt.target.parentElement.classList.add('clickedDiv');
+			});
+        },
+
+        voteRepub: function() {
+            repub +=  1; // DONT KNOW WHERE THIS repub VARIABLE COMES FROM
+            //document.getElementById('repub').style.height = 5;
+            repub.style.height = parseInt(repub.style.height || 0) + 1 + 'px';
+            this.update();
+        },
+
+        voteDemo: function() {
+            demo += 1; // DONT KNOW WHERE THIS demo VARIABLE COMES FROM
+            //document.getElementById('repub').style.height += 5;
+            demo.style.height = parseInt(demo.style.height || 0) + 1 + 'px';
+            this.update();
+        },
+
+        checkWinner: function() {
+            poll.innerHTML = "<h3>" + (repub === 10 && repub > demo ? "Republican" : "Democratic") + " Wins! </h3>";
+        },
+
+        resetPoll: function() {
+
+        },
+
+        update: function() {
+            repub.innerHTML = "<p>" + repub + "</p>";
+            demo.innerHTML = "<p>" + demo + "</p>";
+        }
+    }
+
+   container.addEventListener('click', function(evt) {
+ var div = evt.target.parentElement;
+ div.style.height = parseInt(div.style.height || 0) + 1 + 'px';
+})
+})();
+
 
 </script>
 
